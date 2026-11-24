@@ -353,8 +353,6 @@ Abrir el AP y entrar a **Config → INTERFACE → Port 1**. Configurar:
 
 ![Configuración del AP-PT-AC](Dispositivo%20AP-PT-AC%20configuracion.png)
 
-> El módulo WPC300N solo trabaja en **2.4 GHz**. Si la laptop no detecta la red, aplicar el mismo SSID y seguridad en el puerto de radio de 2.4 GHz del AP.
-
 ### 13.3 Instalar el módulo WPC300N en las laptops
 En cada laptop ir a la pestaña **Physical**:
 
