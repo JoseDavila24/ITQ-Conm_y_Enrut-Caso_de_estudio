@@ -19,7 +19,7 @@ shutdown
 ## 3. Direccionamiento de PCs
 Ingresar en cada PC la IP, mascara y DG
 
-> Nota: Para ingresar el AP selecciona un WRT300N de la seccion Wireless Devices y en el dispositivo final agrega el modulo NM-1W-AC
+> Nota: Para los AP se usaron los AP-PT-AC y laptops con para la VLAN 305 se usaron laps con el modulo WPC300N para conectarse por wi-fi y se optorgo IPs de forma dinamica por DHCP con el router
 ## 4. VTP (server + Clientes)
 
 4.1 Configurar el servidor y crear vlans
