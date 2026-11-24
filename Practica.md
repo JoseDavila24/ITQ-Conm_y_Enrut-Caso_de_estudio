@@ -290,15 +290,14 @@ no shutdown
 exit
 ```
 
-**R1** (lado contrario, como referencia)
+**R1**
 ```cisco
 username R5 secret <password>
 
-interface <serial_hacia_R5>
+interface serial 0/0/0
 ip address 172.16.9.33 255.255.255.252
 encapsulation ppp
 ppp authentication chap
-clock rate 2000000   ! solo si este extremo es DCE
 no shutdown
 exit
 ```
