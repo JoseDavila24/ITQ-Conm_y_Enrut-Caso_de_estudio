@@ -64,7 +64,7 @@ Ingresar en cada PC la IP, mascara y DG
 
 > Si hay más de una PC en la misma VLAN (una en SW_A2 y otra en SW_A3), usar la siguiente IP del rango (ej. 172.16.8.210).
 
-> Nota: Para ingresar el AP selecciona un WRT300N de la seccion Wireless Devices y en el dispositivo final agrega el modulo NM-1W-AC
+> Nota: Para los AP se usaron los AP-PT-AC y laptops con para la VLAN 305 se usaron laps con el modulo WPC300N para conectarse por wi-fi y se optorgo IPs de forma dinamica por DHCP con el router
 
 ## 4. VTP (server + Clientes)
 
@@ -124,15 +124,6 @@ spanning-tree vlan 1,11-13,301-305 priority 8192
 ```
 
 ## 6. Puertos troncales
-Ejemplo general para puerto troncal entre dos switches
-
-```cisco
-interface <interfaz>
-switchport mode trunk
-switchport trunk native vlan <id>
-no shutdown
-```
-
 **SW_A1**
 ```cisco
 interface fastEthernet 0/11
@@ -187,15 +178,6 @@ exit
 > La VLAN nativa debe ser **la misma en ambos extremos** del enlace, si no aparece el error *native VLAN mismatch*.
 
 ## 7. Puertos de acceso
-Ejemplo general para asignar un puerto a una sola VLAN
-
-```cisco
-interface <interfaz>
-switchport mode access
-switchport access vlan <id>
-no shutdown
-```
-
 **SW_A2 y SW_A3** (misma configuración en ambos)
 ```cisco
 interface fastEthernet 0/1
@@ -231,18 +213,6 @@ exit
 ```
 
 ## 8. Subinterfaces (Router-on-a-Stick)
-Ejemplo general para crear una subinterfaz
-
-```cisco
-interface <interfaz_fisica>
-no shutdown
-
-interface <interfaz_fisica>.<vlan>
-encapsulation dot1Q <vlan>
-ip address <ip_gateway> <máscara>
-exit
-```
-
 **R5**
 ```cisco
 enable
@@ -281,19 +251,6 @@ exit
 ```
 
 ## 9. Port Security
-Ejemplo general para limitar MAC en un puerto de acceso
-
-```cisco
-interface range <interfaces>
-switchport mode access
-switchport port-security
-switchport port-security maximum 1
-switchport port-security mac-address sticky
-switchport port-security violation restrict
-no shutdown
-exit
-```
-
 **SW_A2 y SW_A3** (solo puertos de PCs; el puerto del AP Fa0/5 queda sin port-security)
 ```cisco
 interface range fastEthernet 0/1 - 4
@@ -369,9 +326,10 @@ exit
 
 > **Pendiente de completar manualmente.**
 >
-> - Dispositivo: WRT300N conectado a **Fa0/5** de SW_A2 / SW_A3 (VLAN 305).
+> - Dispositivo: AP-PT-AC conectado a **Fa0/5** de SW_A2 / SW_A3 (VLAN 305).
+> - Clientes: laptops con el módulo WPC300N.
 > - Red asignada: 172.16.9.16/28, gateway 172.16.9.30, IPs entregadas por el DHCP de R5 (paso 10).
-> - Datos por llenar: SSID, tipo de seguridad (WPA2-PSK, etc.), contraseña, modo del AP y configuración de los dispositivos inalámbricos (módulo NM-1W-AC).
+> - Datos por llenar: SSID, tipo de seguridad (WPA2-PSK, etc.), contraseña y configuración de las laptops.
 
 ```text
 SSID:       <por definir>
