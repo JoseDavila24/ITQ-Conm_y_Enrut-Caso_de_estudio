@@ -64,7 +64,7 @@ Ingresar en cada PC la IP, mascara y DG
 
 > Si hay más de una PC en la misma VLAN (una en SW_A2 y otra en SW_A3), usar la siguiente IP del rango (ej. 172.16.8.210).
 
-> Nota: Para los AP se usaron los AP-PT-AC y laptops con para la VLAN 305 se usaron laps con el modulo WPC300N para conectarse por wi-fi y se optorgo IPs de forma dinamica por DHCP con el router
+> Nota: En la VLAN 305 (WiFi) se usaron Access Points AP-PT-AC y laptops con el módulo WPC300N. Las laptops obtienen su IP de forma dinámica por DHCP desde R5 (ver pasos 10 y 13).
 
 ## 4. VTP (server + Clientes)
 
@@ -323,29 +323,66 @@ exit
 
 ## 13. WiFi (Access Point)
 
-1. Seleccionamos el dispositivo AP-PT-AC conectado a **Fa0/5** de SW_A2 / SW_A3 (VLAN 305).
-![Ubicacion del dispositivo](Dispositivo%20AP-PT-AC.png)
+La VLAN 305 es la red inalámbrica. Un AP-PT-AC conectado a **Fa0/5** de SW_A2 / SW_A3 da servicio a las laptops, que obtienen su IP por DHCP desde R5 (paso 10).
 
-2. Añadir los clientes con laptops con el módulo WPC300N.
-![Seleccion del modulo en la lapto](Modulo%20WPC300N.png)
+| Parámetro       | Valor                          |
+| --------------- | ------------------------------ |
+| Access Point    | AP-PT-AC (nombre: AP - A1)     |
+| Puerto del switch | Fa0/5 (VLAN 305)             |
+| SSID            | `AP - A1`                      |
+| Autenticación   | WPA-PSK                        |
+| Cifrado         | AES                            |
+| Contraseña      | `Equipo5#`                     |
+| Clientes        | Laptops con módulo WPC300N     |
+| Red             | 172.16.9.16/28                 |
+| Gateway         | 172.16.9.30 (R5)               |
+| Direccionamiento | DHCP (pool de R5)             |
 
-3. Asignar la Red: 172.16.9.16/28, gateway 172.16.9.30, IPs entregadas por el DHCP de R5 (paso 10).
+### 13.1 Agregar el Access Point
+En la barra de dispositivos ir a **Wireless Devices** y seleccionar **AP-PT-AC**. Conectarlo con cable directo al puerto **Fa0/5** del switch.
 
-4. Datos por llenar: SSID, tipo de seguridad, contraseña y configuración de las laptops.
-Dentro de la congiguracion del AP-PT-AC
-![Seccion de configuracion dentro del dispositivo](Dispositivo%20AP-PT-AC%20configuracion.png)
-```text
-SSID:       AP-A1
-Seguridad:  WPA-PSK
-Password:   Equipo5#
-```
-5. Ingresar a la lap y configurar el wifi
-Modulo WPC300N configuracion parte 1.png - seleccionamos PC wireless
-Modulo WPC300N configuracion parte 2.png - seleccionamos connect
-Modulo WPC300N configuracion parte 3.png - seleccionamos el nombre de red y le damos en conectar
-Modulo WPC300N configuracion parte 4.png - Ingresamos los datos y le damos en conectar
+![Ubicación del AP-PT-AC](Dispositivo%20AP-PT-AC.png)
 
+### 13.2 Configurar el Access Point
+Abrir el AP y entrar a **Config → INTERFACE → Port 1**. Configurar:
 
+- **SSID:** `AP - A1`
+- **Authentication:** WPA-PSK
+- **PSK Pass Phrase:** `Equipo5#`
+- **Encryption Type:** AES
+
+![Configuración del AP-PT-AC](Dispositivo%20AP-PT-AC%20configuracion.png)
+
+> El módulo WPC300N solo trabaja en **2.4 GHz**. Si la laptop no detecta la red, aplicar el mismo SSID y seguridad en el puerto de radio de 2.4 GHz del AP.
+
+### 13.3 Instalar el módulo WPC300N en las laptops
+En cada laptop ir a la pestaña **Physical**:
+
+1. Apagar la laptop con el botón de encendido.
+2. Retirar el módulo de red que trae instalado.
+3. Arrastrar el módulo **WPC300N** a la ranura vacía.
+4. Encender de nuevo la laptop.
+
+![Selección del módulo WPC300N](Modulo%20WPC300N.png)
+
+### 13.4 Conectar la laptop a la red inalámbrica
+1. En la pestaña **Desktop**, abrir **PC Wireless**.
+
+   ![PC Wireless](Modulo%20WPC300N%20configuracion%20parte%201.png)
+
+2. Entrar a la pestaña **Connect**.
+
+   ![Pestaña Connect](Modulo%20WPC300N%20configuracion%20parte%202.png)
+
+3. Seleccionar la red **AP - A1** y dar clic en **Connect**.
+
+   ![Selección de la red](Modulo%20WPC300N%20configuracion%20parte%203.png)
+
+4. Elegir **Security:** WPA-Personal, **Encryption:** AES, escribir la **Pre-shared Key** `Equipo5#` y dar clic en **Connect**.
+
+   ![Datos de seguridad](Modulo%20WPC300N%20configuracion%20parte%204.png)
+
+5. En **Desktop → IP Configuration**, seleccionar **DHCP** y verificar que la laptop reciba una IP del rango 172.16.9.17 - 172.16.9.29 con gateway 172.16.9.30.
 
 ## 14. Guardar y verificar
 
