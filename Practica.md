@@ -323,18 +323,29 @@ exit
 
 ## 13. WiFi (Access Point)
 
-> **Pendiente de completar manualmente.**
->
-> - Dispositivo: AP-PT-AC conectado a **Fa0/5** de SW_A2 / SW_A3 (VLAN 305).
-> - Clientes: laptops con el módulo WPC300N.
-> - Red asignada: 172.16.9.16/28, gateway 172.16.9.30, IPs entregadas por el DHCP de R5 (paso 10).
-> - Datos por llenar: SSID, tipo de seguridad (WPA2-PSK, etc.), contraseña y configuración de las laptops.
+1. Seleccionamos el dispositivo AP-PT-AC conectado a **Fa0/5** de SW_A2 / SW_A3 (VLAN 305).
+![Ubicacion del dispositivo](Dispositivo%20AP-PT-AC.png)
 
+2. Añadir los clientes con laptops con el módulo WPC300N.
+![Seleccion del modulo en la lapto](Modulo%20WPC300N.png)
+
+3. Asignar la Red: 172.16.9.16/28, gateway 172.16.9.30, IPs entregadas por el DHCP de R5 (paso 10).
+
+4. Datos por llenar: SSID, tipo de seguridad, contraseña y configuración de las laptops.
+Dentro de la congiguracion del AP-PT-AC
+![Seccion de configuracion dentro del dispositivo](Dispositivo%20AP-PT-AC%20configuracion.png)
 ```text
-SSID:       <por definir>
-Seguridad:  <por definir>
-Password:   <por definir>
+SSID:       AP-A1
+Seguridad:  WPA-PSK
+Password:   Equipo5#
 ```
+5. Ingresar a la lap y configurar el wifi
+Modulo WPC300N configuracion parte 1.png - seleccionamos PC wireless
+Modulo WPC300N configuracion parte 2.png - seleccionamos connect
+Modulo WPC300N configuracion parte 3.png - seleccionamos el nombre de red y le damos en conectar
+Modulo WPC300N configuracion parte 4.png - Ingresamos los datos y le damos en conectar
+
+
 
 ## 14. Guardar y verificar
 
